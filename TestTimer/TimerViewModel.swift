@@ -10,9 +10,7 @@ import UserNotifications
 import Combine
 
 public final class TimerViewModel: NSObject, ObservableObject {
-    @Published var isPlaying: Bool = false
-    @Published var fillValue: CGFloat = 1
-    @Published var timerValue: String = "60.000"
+    @Published var dataModel: TimerDataModel = .init()
     
     let notificationCenter = UNUserNotificationCenter.current()
     
@@ -59,7 +57,7 @@ public final class TimerViewModel: NSObject, ObservableObject {
     }
     
     func startTimer() {
-        isPlaying = true
+        dataModel.isPlaying = true
         
         if timer == nil {
             timer = Timer.scheduledTimer(timeInterval: 1/1000,
@@ -74,7 +72,7 @@ public final class TimerViewModel: NSObject, ObservableObject {
     }
     
     func pauseTimer() {
-        isPlaying = false
+        dataModel.isPlaying = false
         timer?.invalidate()
         timer = nil
     }
@@ -82,8 +80,8 @@ public final class TimerViewModel: NSObject, ObservableObject {
     func stopTimer() {
         pauseTimer()
         secondCount = 60000
-        timerValue = "60.000"
-        fillValue = 1
+        dataModel.timerValue = "60.000"
+        dataModel.fillValue = 1
     }
     
     func showNotification() {
@@ -112,8 +110,8 @@ public final class TimerViewModel: NSObject, ObservableObject {
             return
         }
         secondCount -= 1
-        fillValue = CGFloat((Double(secondCount)/60000))
-        timerValue = formatMmSsMl(counter: Double(60000 - secondCount))
+        dataModel.fillValue = CGFloat((Double(secondCount)/60000))
+        dataModel.timerValue = formatMmSsMl(counter: Double(60000 - secondCount))
     }
     
     func formatMmSsMl(counter: Double) -> String {

@@ -17,12 +17,12 @@ struct TimerAnimation: View {
                 .stroke(Color.blue, style: StrokeStyle(lineWidth: 30))
             // Animation circle
             Circle()
-                .trim(from: 0, to: viewModel.fillValue)
+                .trim(from: 0, to: viewModel.dataModel.fillValue)
                 .stroke(Color.yellow, style: StrokeStyle(lineWidth: 30))
                 .rotationEffect(.init(degrees: -90))
                 .animation(.default)
             
-            Text(viewModel.timerValue)
+            Text(viewModel.dataModel.timerValue)
                 .font(.system(size: 52))
         }
         .padding(50)

@@ -22,13 +22,13 @@ struct ContentView: View {
                 
                 Button {
                     // Start/Pause
-                    if viewModel.isPlaying {
+                    if viewModel.dataModel.isPlaying {
                         viewModel.pauseTimer()
                     } else {
                         viewModel.startTimer()
                     }
                 } label: {
-                    let imageName = viewModel.isPlaying ? "pause.fill" : "play.fill"
+                    let imageName = viewModel.dataModel.isPlaying ? "pause.fill" : "play.fill"
                     Image(systemName: imageName)
                         .foregroundStyle(.blue)
                 }
