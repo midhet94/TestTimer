@@ -8,17 +8,38 @@
 import SwiftUI
 
 struct ContentView: View {
+    @ObservedObject var viewModel: TimerViewModel
+    
     var body: some View {
         VStack {
-            TimerAnimation()
+            TimerAnimation(viewModel: viewModel)
             HStack {
-                Button("Start/Pause") {
-                    
+                Spacer()
+                
+                Button {
+                    // "Start/Pause"
+                    if viewModel.isPlaying {
+                        viewModel.pauseTimer()
+                    } else {
+                        viewModel.startTimer()
+                    }
+                } label: {
+                    let imageName = viewModel.isPlaying ? "pause.fill" : "play.fill"
+                    Image(systemName: imageName)
+                        .foregroundStyle(.blue)
                 }
                 
-                Button("Stop") {
-                    
+                Spacer()
+                
+                Button {
+                    // "Stop"
+                    viewModel.stopTimer()
+                } label: {
+                    Image(systemName: "stop.fill")
+                        .foregroundStyle(.blue)
                 }
+                
+                Spacer()
             }
             .padding()
         }
@@ -26,5 +47,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    ContentView(viewModel: TimerViewModel())
 }

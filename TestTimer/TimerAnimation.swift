@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TimerAnimation: View {
-    @State var fill: CGFloat = 0.1
+    @ObservedObject var viewModel: TimerViewModel
     
     var body: some View {
         ZStack {
@@ -17,12 +17,12 @@ struct TimerAnimation: View {
                 .stroke(Color.blue, style: StrokeStyle(lineWidth: 30))
             // Animation circle
             Circle()
-                .trim(from: 0, to: self.fill)
+                .trim(from: 0, to: viewModel.fillValue)
                 .stroke(Color.yellow, style: StrokeStyle(lineWidth: 30))
                 .rotationEffect(.init(degrees: -90))
                 .animation(.default)
             
-            Text("\(self.fill)")
+            Text(viewModel.timerValue)
                 .font(.system(size: 52))
         }
         .padding(50)
@@ -30,5 +30,5 @@ struct TimerAnimation: View {
 }
 
 #Preview {
-    TimerAnimation()
+    TimerAnimation(viewModel: TimerViewModel())
 }
