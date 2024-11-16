@@ -6,9 +6,13 @@
 //
 
 import SwiftUI
+import Combine
 
 struct ContentView: View {
+    @Environment(\.scenePhase) var scenePhase
     @ObservedObject var viewModel: TimerViewModel
+    
+    
     
     var body: some View {
         VStack {
@@ -42,6 +46,16 @@ struct ContentView: View {
                 Spacer()
             }
             .padding()
+        }
+        .onChange(of: scenePhase) { oldPhase, newPhase in
+            switch newPhase {
+            case .active:
+                viewModel.calculateElapsedTime.send()
+            case .background:
+                viewModel.savedDate = Date()
+            default:
+                break
+            }
         }
     }
 }
