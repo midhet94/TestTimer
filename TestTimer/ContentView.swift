@@ -17,7 +17,7 @@ struct ContentView: View {
                 Spacer()
                 
                 Button {
-                    // "Start/Pause"
+                    // Start/Pause
                     if viewModel.isPlaying {
                         viewModel.pauseTimer()
                     } else {
@@ -32,7 +32,7 @@ struct ContentView: View {
                 Spacer()
                 
                 Button {
-                    // "Stop"
+                    // Stop
                     viewModel.stopTimer()
                 } label: {
                     Image(systemName: "stop.fill")
